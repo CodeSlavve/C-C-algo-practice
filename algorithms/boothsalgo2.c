@@ -2,7 +2,7 @@
 
 void boothsmultiply(int M, int Q){
     int Q_1 = 0, A = 0, iteration = 1;
-    int A_0, A_MSB, Q_0, Q_MSB;
+    int Q_0;
     while (iteration <= 32){
         Q_0 = Q & 1;
         if((Q_0 == 1) && (Q_1 == 0)){
