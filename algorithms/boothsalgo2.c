@@ -1,21 +1,23 @@
 #include <stdio.h>
 
 void boothsmultiply(int M, int Q){
-    int Q_1 = 0, A = 0, iteration = 1;
-    int Q_0;
-    while (iteration <= 32){
-        Q_0 = Q & 1;
-        if((Q_0 == 1) && (Q_1 == 0)){
+    int Q_1 = 0, A = 0, iteration = 0;
+    int Q0;
+    int bits = sizeof(void*) * 4;       //signed bits
+
+    while (iteration < bits){
+        Q0 = Q & 1;
+        if((Q0 == 1) && (Q_1 == 0)){
             A -= M;
-        } else if ((Q_0 == 0) && (Q_1 == 1)){
+        } else if ((Q0 == 0) && (Q_1 == 1)){
             A += M;
         }
-        Q_1 = Q_0;
-        Q = (A & 1) << 31 | ((unsigned)Q >> 1);
+        Q_1 = Q0;
+        Q = (A & 1) << (bits - 1) | ((unsigned)Q >> 1);
         A >>= 1;
         iteration++;
     }
-    long long result = ((long long)A << 32) | (unsigned int)Q;
+    long long result = ((long long)A << bits) | (unsigned int)Q;
     printf("Product = %lld\n", result);
 }
 
